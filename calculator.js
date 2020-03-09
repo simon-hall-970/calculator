@@ -29,3 +29,40 @@ We will need to store the number somewhere in an array. We will need to store th
 
 //press a number and display value in main display.
 
+var expression=[];
+var display=[];
+var dispNum
+
+$butt=document.getElementsByTagName('button');
+
+document.getElementById("base").addEventListener("click", getValue);
+
+function getValue() {
+   console.log(event.target.className);
+   switch (event.target.className) {
+   case "num": 
+      display.push(event.target.value);
+      setDisplay();
+      break;
+   case "operator":
+      expression.push(display.join(''),(event.target.value));
+      display=[];
+      setDisplay();
+      break;
+   case "clear": 
+      if (event.target.id == "c"){
+         display=[];
+         return setDisplay();
+      }else {
+         expression=[];
+         display=[];
+         setDisplay();
+      }break;
+   }
+   
+}
+
+function setDisplay () {
+   document.getElementById("display-bottom").innerHTML=display.join('');
+   document.getElementById("display-top").innerHTML=expression.join(' ')
+}

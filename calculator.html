@@ -24,44 +24,44 @@
             <tr>
                 <td colspan="4">
                     <div id="display-main">
-                        <div id="display-top">123 +</div>
-                        <div id="display-bottom">123456789</div>
+                        <div id="display-top"></div>
+                        <div id="display-bottom"></div>
                     </div>
                 </td>
             </tr>
 
             <tr>
-                <td><button class="clear">CE</button></td>
-                <td><button class="clear">C</button></td>
+                <td><button id="ce" class="clear">CE</button></td>
+                <td><button id="c" class="clear">C</button></td>
                 <td><button class ="operator">%</button></td>
-                <td><button class ="operator">&#247;</button></td>
+                <td><button value=/ class ="operator">&#247;</button></td>
             </tr>
             <tr>
-                <td><button>7</button></td>
-                <td><button>8</button></td>
-                <td><button>9</button></td>
-                <td><button class="operator">x</button></td>
+                <td><button value=7 class="num">7</button></td>
+                <td><button value=8 class="num">8</button></td>
+                <td><button value=9 class="num">9</button></td>
+                <td><button value=* class="operator">x</button></td>
             </tr>
             <tr>
-                <td><button>4</button></td>
-                <td><button>5</button></td>
-                <td><button>6</button></td>
-                <td><button class="operator">&ndash;</button></td>
+                <td><button value=4 class="num">4</button></td>
+                <td><button value=5 class="num">5</button></td>
+                <td><button value=6 class="num">6</button></td>
+                <td><button value=- class="operator">&ndash;</button></td>
             </tr>
             <tr>
-                <td><button>1</button></td>
-                <td><button>2</button></td>
-                <td><button>3</button></td>
-                <td rowspan="2"><button id="plus" class="operator">+</button></td>
+                <td><button value=1 class="num">1</button></td>
+                <td><button value=2 class="num">2</button></td>
+                <td><button value=3 class="num">3</button></td>
+                <td rowspan="2"><button value=+ id="plus" class="operator">+</button></td>
             </tr>
             <tr>
-                <td><button>0</button></td>
-                <td><button>.</button></td>
-                <td><button class="operator">=</button></td>
+                <td><button value=0 class="num">0</button></td>
+                <td><button value=. class="num">.</button></td>
+                <td><button value="=" class="operator">=</button></td>
             </tr>
         </table>
     </div>
-
+    <script type="text/javascript" src="calculator.js"></script>
 </body>
 
 </html>
