@@ -31,7 +31,7 @@ We will need to store the number somewhere in an array. We will need to store th
 
 var expression=[];
 var display=[];
-var dispNum
+var result
 
 $butt=document.getElementsByTagName('button');
 
@@ -45,9 +45,17 @@ function getValue() {
       setDisplay();
       break;
    case "operator":
-      expression.push(display.join(''),(event.target.value));
-      display=[];
-      setDisplay();
+      if(event.target.value == "="){
+         expression.push(display.join(''));
+         result=eval(expression.join(' '));
+         expression.push(event.target.value)
+         display=[result];
+         setDisplay();
+      }else{
+         expression.push(display.join(''),(event.target.value));
+         display=[];
+         setDisplay();
+      }
       break;
    case "clear": 
       if (event.target.id == "c"){
