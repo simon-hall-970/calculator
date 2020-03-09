@@ -1,5 +1,7 @@
 //deal with overflow from large numbers.
 //write function for dealing with brackets.
+//write function for dealing with multiple operators.  Allow plus minus and minus plus but no other double operators.
+//Could be as simple as returning an error after evaluation on incorrect expressions.
 
 var expression=[];
 var display=[];
@@ -40,11 +42,16 @@ function getValue() {
       break;
 
    case "clear": 
-      if (event.target.id == "c"){
+      if (expression[expression.length-1]=="=") {
+         expression=[];
+         display=[];
+         setDisplay();
+      }else if (event.target.id == "c"){
          resetMain()
       }else {
-         expression=[];
-         resetMain()
+         expression=[]
+         display=[];
+         setDisplay();
       }break;
    }
 }
