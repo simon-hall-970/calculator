@@ -16,6 +16,7 @@ body *{
 }
 
 table {
+
     height: auto;
     width: 320px;
     margin-left: 50%;
@@ -38,6 +39,7 @@ table {
     font-size: 1em;
 }
 #display-main {
+    overflow:hidden;    
     position: relative;
     width: 278px;
     height: 69px;
