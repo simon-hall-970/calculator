@@ -1,9 +1,3 @@
-//deal with overflow from large numbers.
-//write function for dealing with brackets.
-//write function for dealing with multiple operators.  Allow plus minus and minus plus but no other double operators.
-//Could be as simple as returning an error after evaluation on incorrect expressions.
-
-
 var expression=[];
 var display=[];
 
@@ -13,61 +7,83 @@ function getValue() {
    switch (event.target.className) { //select action depending on type of button pressed.
 
    case "num": 
-      if ((event.target.value == ".") && (display.includes("."))) {
-         return
-      } //restrict entries to single decimal
-
-      if (event.target.value == "neg"){ //positive negative
-         if (display[0] == "-") {
-            display.shift();
-            return setDisplay();
-         }else {
-            display.unshift("-");
-            return setDisplay();
-         }
-      }
-
-      display.push(event.target.value);
-      setDisplay();
+      numberPress();
    break;
 
    case "operator":
+      operatorPress();
+   break;
 
-      if (expression[expression.length-1]=="=") {
-         if(event.target.value == "=") { //nullify "=" button on repetitive clicks
-            return;
+   case "clear": 
+      clearPress();
+   break;
+   }
+}
 
-         }else{ //allow new operations to be performed on the last result
-            expression=[];
-            expression.push(display.join(''),event.target.value);
-            return reset();
-         }
+function numberPress() {
+   if ((event.target.value == ".") && (display.includes("."))) {
+      return
+   } //restrict entries to single decimal
+
+   else if (event.target.value == "neg"){ //positive negative
+      if (display[0] == "-") {
+         display.shift();
+         return setDisplay();
+      }else {
+         display.unshift("-");
+         return setDisplay();
       }
+   } else {
+      if(expression[expression.length-1]=="=") {
+         resetFull()
+      }
+   display.push(event.target.value);
+   return setDisplay();
+   }
+}
 
-      if(event.target.value == "="){ //resolve an equation on the equals
+function operatorPress() {
+   const opArr = ["+", "-", "/", "x"];
+   if (display.length<1) {
+      return;
+   } 
+   else if (event.target.value == "=") {
+         if (expression[expression.length-1] == "=") {
+            return;
+         } 
+         else if (expression.length<1) {
+            return;
+         }
+         else {
          expression.push(display.join(''));
          display=[eval(expression.join(' '))]; 
          expression.push(event.target.value);
          setDisplay();
-
-      }else{
-         expression.push(display.join(''),(event.target.value)); 
-         reset();
+         return;
       }
-   break;
+   }
 
-   case "clear": 
-
-      if (expression[expression.length-1]=="=") {//if euqation is resolved all clear buttons clear everything
-         resetFull();
-
-      }else if (event.target.id == "ce"){ //clears entry leaves previous entries in top display
-         resetClear();
-
-      }else {//AC resets everything back to start
-         resetFull();
+   else if (expression[expression.length-1] == "=")   { //allow new operations to be performed on the last result
+         expression=[];
+         expression.push(display.join(''),event.target.value);
+         return reset();
       }
-   break;
+
+   else {
+      expression.push(display.join(''),(event.target.value)); 
+      reset();
+   }
+}
+
+function clearPress() {
+   if (expression[expression.length-1]=="=") {//if euqation is resolved all clear buttons clear everything
+      resetFull();
+
+   }else if (event.target.id == "ce"){ //clears entry leaves previous entries in top display
+      resetClear();
+
+   }else {//AC resets everything back to start
+      resetFull();
    }
 }
 
@@ -89,5 +105,5 @@ function resetFull(){
 //function to set the displays
 function setDisplay () {
    document.getElementById("display-bottom").innerHTML=display.join('');
-   document.getElementById("display-top").innerHTML=expression.join(' ')
+   document.getElementById("display-top").innerHTML=expression.join(' ');
 }
