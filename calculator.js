@@ -10,54 +10,80 @@ var display=[];
 document.getElementById("base").addEventListener("click", getValue);
 
 function getValue() {
-   switch (event.target.className) {
+   switch (event.target.className) { //select action depending on type of button pressed.
 
    case "num": 
       if ((event.target.value == ".") && (display.includes("."))) {
-         return} //restrict entries to single decimal
+         return
+      } //restrict entries to single decimal
+
+      if (event.target.value == "neg"){ //positive negative
+         if (display[0] == "-") {
+            display.shift();
+            return setDisplay();
+         }else {
+            display.unshift("-");
+            return setDisplay();
+         }
+      }
+
       display.push(event.target.value);
       setDisplay();
-      break;
+   break;
 
    case "operator":
+
       if (expression[expression.length-1]=="=") {
          if(event.target.value == "=") { //nullify "=" button on repetitive clicks
             return;
+
          }else{ //allow new operations to be performed on the last result
-            expression=[]
-            expression.push(display.join(''),event.target.value)
-            return resetMain()
+            expression=[];
+            expression.push(display.join(''),event.target.value);
+            return reset();
          }
       }
+
       if(event.target.value == "="){ //resolve an equation on the equals
          expression.push(display.join(''));
          display=[eval(expression.join(' '))]; 
-         expression.push(event.target.value)
+         expression.push(event.target.value);
          setDisplay();
+
       }else{
          expression.push(display.join(''),(event.target.value)); 
-         resetMain();
+         reset();
       }
-      break;
+   break;
 
    case "clear": 
+
       if (expression[expression.length-1]=="=") {//if euqation is resolved all clear buttons clear everything
-         expression=[];
-         display=[];
-         setDisplay();
+         resetFull();
+
       }else if (event.target.id == "ce"){ //clears entry leaves previous entries in top display
-         resetMain()
+         resetClear();
+
       }else {//AC resets everything back to start
-         expression=[]
-         display=[];
-         setDisplay();
-      }break;
+         resetFull();
+      }
+   break;
    }
 }
 
-function resetMain() { //some refactoring to reset the main display
+function reset() { //some refactoring to reset the main display
    setDisplay();
    display=[];
+}
+
+function resetClear() {
+   display=[];
+   setDisplay();
+}
+
+function resetFull(){
+   expression=[];
+   resetClear();
 }
 
 //function to set the displays
